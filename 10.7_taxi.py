@@ -170,6 +170,7 @@ ORDER BY
 ''')
 for row in cursor.fetchall():
     print(dict(row))
+
 # Commit the changes and close the connection
 conn.commit()
 conn.close()
