@@ -43,7 +43,7 @@ INSERT INTO passengers (id, name, destination, taxi_id) VALUES
 ''')
 
 # --0 דוגמא INNER JOIN | הצג את כל המוניות והנוסעים שלהן --
-print("--- 1 INNER JOIN: הצג את כל המוניות והנוסעים שלהן ---")
+print("--- 0 INNER JOIN: הצג את כל המוניות והנוסעים שלהן ---")
 cursor.execute('''
 SELECT t.id AS taxi_id, t.driver_name, t.car_type, 
        p.id AS passenger_id, p.name AS passenger_name, p.destination
@@ -54,7 +54,7 @@ for row in cursor.fetchall():
     print(dict(row))
 
 # --1 INNER JOIN | הצג את כל הנוסעים שהשיגו מונית יחד עם פרטי המונית --
-print("\n--- 2 INNER JOIN: הצג את כל הנוסעים שהשיגו מונית יחד עם פרטי המונית ---")
+print("\n--- 1 INNER JOIN: הצג את כל הנוסעים שהשיגו מונית יחד עם פרטי המונית ---")
 cursor.execute('''
 SELECT p.id AS passenger_id, p.name AS passenger_name, p.destination, 
        t.id AS taxi_id, t.driver_name, t.car_type
@@ -65,7 +65,7 @@ for row in cursor.fetchall():
     print(dict(row))
 
 # --2 LEFT JOIN | הצג את כל הנוסעים כולל כאלה שמצאו מונית וכאלה שלא --
-print("\n--- 3 LEFT JOIN: הצג את כל הנוסעים כולל כאלה שמצאו מונית וכאלה שלא ---")
+print("\n--- 2 LEFT JOIN: הצג את כל הנוסעים כולל כאלה שמצאו מונית וכאלה שלא ---")
 cursor.execute('''
 SELECT p.id AS passenger_id, p.name AS passenger_name, p.destination, 
        t.id AS taxi_id, t.driver_name, t.car_type
@@ -76,7 +76,7 @@ for row in cursor.fetchall():
     print(dict(row))
 
 # --3 LEFT JOIN | הצג רק את הנוסעים שאין להם taxi_id תואם --
-print("\n--- 4 LEFT JOIN: הצג רק את הנוסעים שאין להם taxi_id תואם ---")
+print("\n--- 3 LEFT JOIN: הצג רק את הנוסעים שאין להם taxi_id תואם ---")
 cursor.execute('''
 SELECT p.id AS passenger_id, p.name AS passenger_name, p.destination
 FROM passengers p
@@ -87,7 +87,7 @@ for row in cursor.fetchall():
     print(dict(row))
 
 # --4 FULL OUTER JOIN | הצג את כל הנוסעים וכל המוניות — גם אם אין התאמה ביניהם --
-print("\n--- 5 FULL OUTER JOIN: הצג את כל הנוסעים וכל המוניות — גם אם אין התאמה ביניהם ---")
+print("\n--- 4 FULL OUTER JOIN: הצג את כל הנוסעים וכל המוניות — גם אם אין התאמה ביניהם ---")
 cursor.execute('''
 SELECT p.id AS passenger_id, p.name AS passenger_name, p.destination, 
        t.id AS taxi_id, t.driver_name, t.car_type
@@ -105,7 +105,7 @@ for row in cursor.fetchall():
     print(dict(row))
 
 # --5 CROSS JOIN | הצג את כל הצירופים האפשריים בין נוסעים למוניות --
-print("\n--- 6 CROSS JOIN: הצג את כל הצירופים האפשריים בין נוסעים למוניות ---")
+print("\n--- 5 CROSS JOIN: הצג את כל הצירופים האפשריים בין נוסעים למוניות ---")
 cursor.execute('''
 SELECT p.id AS passenger_id, p.name AS passenger_name, p.destination, 
        t.id AS taxi_id, t.driver_name, t.car_type
