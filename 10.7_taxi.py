@@ -114,6 +114,63 @@ CROSS JOIN taxis t;
 for row in cursor.fetchall():
     print(dict(row))
 
+# --7 LEFT JOIN | הצג את כל הנוסעים כולל כאלה שמצאו מונית וכאלה שלא --
+print("\n--- 7 LEFT JOIN: הצג את כל הנוסעים כולל כאלה שמצאו מונית וכאלה שלא ---")
+cursor.execute('''
+SELECT p.id AS passenger_id, p.name AS passenger_name, p.destination, 
+       t.id AS taxi_id, t.driver_name, t.car_type
+FROM passengers p
+LEFT JOIN taxis t ON p.taxi_id = t.id;
+''')
+for row in cursor.fetchall():
+    print(dict(row))
+
+# --8 LEFT JOIN | הצג רק את הנוסעים שאין להם taxi_id תואם --
+print("\n--- 8 LEFT JOIN: הצג רק את הנוסעים שאין להם taxi_id תואם ---")
+cursor.execute('''
+SELECT p.id AS passenger_id, p.name AS passenger_name, p.destination
+FROM passengers p
+LEFT JOIN taxis t ON p.taxi_id = t.id
+WHERE p.taxi_id IS NULL;
+''')
+for row in cursor.fetchall():
+    print(dict(row))
+
+# --9 FULL OUTER JOIN | הצג את כל הנוסעים וכל המוניות — גם אם אין התאמה ביניהם --
+print("\n--- 9 FULL OUTER JOIN: הצג את כל הנוסעים וכל המוניות — גם אם אין התאמה ביניהם ---")
+cursor.execute('''
+SELECT p.id AS passenger_id, p.name AS passenger_name, p.destination, 
+       t.id AS taxi_id, t.driver_name, t.car_type
+FROM passengers p
+LEFT JOIN taxis t ON p.taxi_id = t.id
+UNION
+SELECT p.id AS passenger_id, p.name AS passenger_name, p.destination, 
+       t.id AS taxi_id, t.driver_name, t.car_type
+FROM passengers p
+RIGHT JOIN taxis t ON p.taxi_id = t.id
+WHERE p.id IS NULL;
+''')
+for row in cursor.fetchall():
+    print(dict(row))
+
+# --10 CROSS JOIN | הצג את כל הצירופים האפשריים בין נוסעים למוניות --
+print("\n--- 10 CROSS JOIN: הצג את כל הצירופים האפשריים בין נוסעים למוניות ---")
+cursor.execute('''
+SELECT 
+    p.id AS passenger_id,
+    p.name AS passenger_name,
+    p.destination,
+    t.id AS taxi_id,
+    t.driver_name,
+    t.car_type
+FROM 
+    passengers p, taxis t
+ORDER BY 
+    p.id, t.id;
+''')
+for row in cursor.fetchall():
+    print(dict(row))
+
 # Commit the changes and close the connection
 conn.commit()
 conn.close()
