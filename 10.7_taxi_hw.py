@@ -115,6 +115,17 @@ CROSS JOIN taxis t;
 for row in cursor.fetchall():
     print(dict(row))
 
+# --6 INNER JOIN | הצג את כל הנוסעים שהשיגו מונית יחד עם פרטי המונית --
+print("\n--- 6 INNER JOIN: הצג את כל הנוסעים שהשיגו מונית יחד עם פרטי המונית ---")
+cursor.execute('''
+SELECT p.id AS passenger_id, p.name AS passenger_name, p.destination, 
+       t.id AS taxi_id, t.driver_name, t.car_type
+FROM passengers p
+INNER JOIN taxis t ON p.taxi_id = t.id;
+''')
+for row in cursor.fetchall():
+    print(dict(row))
+
 # --7 LEFT JOIN | הצג את כל הנוסעים כולל כאלה שמצאו מונית וכאלה שלא --
 print("\n--- 7 LEFT JOIN: הצג את כל הנוסעים כולל כאלה שמצאו מונית וכאלה שלא ---")
 cursor.execute('''
